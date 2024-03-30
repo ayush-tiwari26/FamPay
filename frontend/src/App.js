@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Container, CardActionArea, Grid, Card, CardMedia, CardContent, Typography, Pagination} from '@mui/material';
+import {
+    Box,
+    Container,
+    Grid,
+    Card,
+    CardMedia,
+    CardContent,
+    Typography,
+    Pagination
+} from '@mui/material';
 
 const styles = {
     card: {
@@ -60,39 +69,62 @@ const App = () => {
 
     return (
         <Container>
-        <Grid container spacing={3} sx={{ mt: 5 }}>
-            {videos && videos.map && videos.map((video) => (
-                <Grid item xs={12} md={4} lg={3} key={video._id}>
-                    <Card sx={styles.card}>
-                        <a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                            <CardMedia
-                                component="img"
-                                image={video.thumbnails?.high?.url || 'https://via.placeholder.com/150'}
-                                alt={video.title}
-                                sx={styles.media}
-                            />
-                        </a>
-                        <CardContent sx={styles.cardContent}>
-                            <Typography gutterBottom variant="h6" sx={{
-                                ...styles.title,
-                                '&:hover': {
-                                    color: 'blue',  // Blue text on hover
-                                },
-                            }}>
-                                {video.title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={styles.description}>
-                                {video.description}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            ))}
-        </Grid>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Pagination count={totalPages} page={page} onChange={handleChangePage} />
-        </Box>
-    </Container>
+            <Grid container spacing={3} sx={{mt: 5}}>
+                {videos && videos.map && videos.map((video) => (
+                    <Grid item xs={12} md={4} lg={3} key={video._id}>
+                        <Card sx={styles.card}>
+                            <a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank"
+                               rel="noopener noreferrer" style={{textDecoration: 'none'}}>
+                                <CardMedia
+                                    component="img"
+                                    image={video.thumbnails?.high?.url || 'https://via.placeholder.com/150'}
+                                    alt={video.title}
+                                    sx={styles.media}
+                                />
+                            </a>
+                            <CardContent sx={styles.cardContent}>
+                                <Typography gutterBottom variant="h6" sx={{
+                                    ...styles.title,
+                                    '&:hover': {
+                                        color: 'blue',  // Blue text on hover
+                                    },
+                                }}>
+                                    {video.title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={styles.description}>
+                                    {video.description}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+            <Box
+                sx={{
+                    position: 'fixed',
+                    height: '15%',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'white',
+                    zIndex: 999,
+                }}
+            >
+                <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={handleChangePage}
+                    color="primary"
+                    size="large"
+                    variant="outlined"
+                    shape="rounded"
+                />
+
+            </Box>
+        </Container>
     );
 };
 
