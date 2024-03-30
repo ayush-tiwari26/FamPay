@@ -7,7 +7,7 @@ import {
     CardMedia,
     CardContent,
     Typography,
-    Pagination
+    Pagination, InputLabel, Select, MenuItem, FormControl
 } from '@mui/material';
 
 const styles = {
@@ -41,6 +41,7 @@ const styles = {
 };
 
 const App = () => {
+    const [sortCriteria, setSortCriteria] = useState('publishedAt'); // Default sort by publishedAt
     const [videos, setVideos] = useState([]);
     const [page, setPage] = useState(1);
     const pageSize = 12;
@@ -67,9 +68,17 @@ const App = () => {
         setPage(value);
     };
 
+
+    videos.sort((a, b) => {
+        if (sortCriteria === 'title') {
+            return a.title.localeCompare(b.title);
+        }
+        return new Date(b.publishedAt) - new Date(a.publishedAt);
+    });
+
     return (
-        <Container>
-            <Grid container spacing={3} sx={{mt: 5}}>
+        <Container sx={{flexDirection: 'column', justifyContent: 'flex-start'}}>
+            <Grid container spacing={3} sx={{mt: '3%', mb: '10%'}}>
                 {videos && videos.map && videos.map((video) => (
                     <Grid item xs={12} md={4} lg={3} key={video._id}>
                         <Card sx={styles.card}>
@@ -113,6 +122,17 @@ const App = () => {
                     zIndex: 999,
                 }}
             >
+                <FormControl variant="outlined" sx={{width: 200, mb: 2, mt: 2, mr: 25}}>
+                    <InputLabel>Sort By</InputLabel>
+                    <Select
+                        value={sortCriteria}
+                        onChange={(e) => setSortCriteria(e.target.value)}
+                        label="Sort By"
+                    >
+                        <MenuItem value="publishedAt">Publish Date</MenuItem>
+                        <MenuItem value="title">Title</MenuItem>
+                    </Select>
+                </FormControl>
                 <Pagination
                     count={totalPages}
                     page={page}
@@ -122,7 +142,6 @@ const App = () => {
                     variant="outlined"
                     shape="rounded"
                 />
-
             </Box>
         </Container>
     );
