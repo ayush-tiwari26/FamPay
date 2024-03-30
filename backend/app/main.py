@@ -13,6 +13,8 @@ app.config.update(
     TEMPLATES_AUTO_RELOAD=True
 )
 
+PAGINATION_SIZE = 12
+
 
 @app.route('/')
 def hello_world():
@@ -24,7 +26,7 @@ def hello_world():
 def search():
     # Default to page 1 if not provided, and default size per page is 10
     page = int(request.args.get('page', 1))
-    size = int(request.args.get('size', 10))
+    size = int(request.args.get('size', PAGINATION_SIZE))
 
     # Calculating the number of documents to skip
     skip = (page - 1) * size
@@ -42,12 +44,12 @@ def search():
 
 @app.route('/total_pages')
 def total_pages():
-    size = int(request.args.get('size', 10))  # Default size per page is 10
+    size = int(request.args.get('size', PAGINATION_SIZE))
 
     # Fetching the total number of videos/documents in the collection
     total_videos = app.mongo_client.db.videos.count_documents({})
 
-    # Calculating total pages by dividing total_videos by size and rounding up
+    # Calculating total pages
     total_pages = (total_videos + size - 1) // size  # Ensure result is an integer
 
     return jsonify({'total_pages': total_pages})

@@ -43,7 +43,7 @@ const styles = {
 const App = () => {
     const [videos, setVideos] = useState([]);
     const [page, setPage] = useState(1);
-    const pageSize = 10; // Match with your backend page size
+    const pageSize = 12;
     const [totalPages, setTotalPages] = useState(0); // To hold the total number of pages
     const BACKEND_BASE_URL = 'http://localhost:5000';
 
