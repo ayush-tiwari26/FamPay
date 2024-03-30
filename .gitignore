@@ -1,0 +1,12 @@
+# Python specific
+*.pyc
+__pycache__/
+**/venv/
+**/instance/
+.env
+
+# Flask specific
+*.pyc
+**/.cache/
+**/.env
+**/instance/
