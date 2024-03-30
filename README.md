@@ -1,7 +1,4 @@
-# FamPay assignment.
-> Submitted by: Ayush Tiwari
-> 
-> Email: ayushtiwari26402@gmail.com
+# FamPay
 
 1. Built using Flask, utilizes MongoDB as database, and PyMongo as the driver.
 2. Consume Youtube API directly (did not require use of any third-party libraries).
